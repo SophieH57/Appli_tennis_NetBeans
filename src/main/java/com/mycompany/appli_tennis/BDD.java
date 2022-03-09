@@ -18,9 +18,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BDD{
     
-   private String url = "jdbc:mysql://localhost:3306/tennis?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
-   private String login = "root";
-   private String password="";
+    Identifiant_connexion IdC = new Identifiant_connexion();
+   private String url = IdC.getUrl();
+   private String login = IdC.getLogin();
+   private String password= IdC.getPassword();
+   
    int ID_Joueur;
    private String nomJoueur;
    private String prenomJoueur;
