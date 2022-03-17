@@ -9,34 +9,30 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Utilisateur
  */
-public class BDD{
+public class JoueurOnglet{
     
     Identifiant_connexion IdC = new Identifiant_connexion();
    private String url = IdC.getUrl();
    private String login = IdC.getLogin();
    private String password= IdC.getPassword();
+   private Connection con;
    
    int ID_Joueur;
    private String nomJoueur;
    private String prenomJoueur;
-   private String sexeJoueur;
-   private Connection con;
-   private String nomTournoi;
-   private int annee;
-   private int numRow;
+   private String sexeJoueur; 
    
-    public BDD() {
+   
+    public JoueurOnglet() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url, login, password);
-            System.out.println("connexion réussie");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -56,9 +52,7 @@ public void clearCT(TextField CT){
      try {
     PreparedStatement pstmt = con.prepareStatement("SELECT * from joueur");
     ResultSet rs = pstmt.executeQuery();
-    numRow = 0;
     while (rs.next()){
-        numRow++;
         ID_Joueur = rs.getInt("ID");
         nomJoueur = rs.getString("NOM");
         prenomJoueur = rs.getString("PRENOM");
@@ -104,8 +98,6 @@ public void deleteJoueur(DefaultTableModel model, int Id){
 
 public void addJoueur(DefaultTableModel model, String nom, String prenom, String sexe){
     try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, login, password);
         PreparedStatement pstmt = con.prepareStatement("INSERT INTO joueur (NOM, PRENOM, SEXE) values (?, ?, ?)");
         pstmt.setString(1, nom);
         pstmt.setString(2, prenom);
@@ -179,99 +171,5 @@ public void afficherPopUp(DefaultTableModel pop, int Id_Joueur){
     }
 }
 
-public void afficherTournois(DefaultTableModel tTournoi){
-    deleteAllRows(tTournoi);
-     try {
-    PreparedStatement pstmt = con.prepareStatement("select tournoi.NOM , epreuve.ANNEE, joueur.NOM, joueur.PRENOM , joueur.SEXE " +
-"from tournoi inner join epreuve inner join match_tennis inner join joueur " +
-"where tournoi.`ID` = epreuve.`ID_TOURNOI` and epreuve.`ID`=match_tennis.`ID_EPREUVE` and joueur.`ID`=match_tennis.`ID_VAINQUEUR`");
-    ResultSet rs = pstmt.executeQuery();
-    while (rs.next()){
-        nomTournoi = rs.getString("tournoi.NOM");
-        annee = rs.getInt("ANNEE");
-        nomJoueur = rs.getString("joueur.NOM");
-        prenomJoueur = rs.getString("joueur.PRENOM");
-        sexeJoueur = rs.getString("SEXE");
-        tTournoi.insertRow(tTournoi.getRowCount(), new Object[]{nomTournoi, annee,nomJoueur,prenomJoueur,sexeJoueur});
-        }
- }
-     catch (Exception e){
-         System.out.println("e");
-     }
-}
 
-public void listeAnnees(JComboBox box){
-    int annee;
-    box.addItem("Toutes");
-    try {
-        PreparedStatement pstmt = con.prepareStatement("select ANNEE from epreuve");
-        ResultSet rs = pstmt.executeQuery();
-        while (rs.next()){
-            annee = rs.getInt("ANNEE");
-            box.addItem(annee);
-        }
-    }
-    catch (Exception e){
-            System.out.println(e);
-            }
-    }
-
-public void listeNomTournois(JComboBox box){
-    String tournoi;
-    box.addItem("Tous");
-    try{
-        PreparedStatement pstmt = con.prepareStatement("select tournoi.NOM from tournoi");
-        ResultSet rs = pstmt.executeQuery();
-        while (rs.next()){
-            tournoi = rs.getString("NOM");
-            box.addItem(tournoi);
-        }
-    }
-    catch(Exception e){
-        System.out.println(e);
-    }
 }
-
-public void triTournoi(DefaultTableModel tTournoi, String nomTournoi){
-    deleteAllRows(tTournoi);
-    try{
-        PreparedStatement pstmt = con.prepareStatement("select tournoi.`NOM` , epreuve.`ANNEE`, joueur.`NOM`, joueur.`PRENOM`, joueur.SEXE " +
-        "from tournoi inner join epreuve inner join match_tennis inner join joueur " +
-        "where tournoi.`NOM` = ? and tournoi.`ID` = epreuve.`ID_TOURNOI` and epreuve.`ID`=match_tennis.`ID_EPREUVE` and joueur.`ID`=match_tennis.`ID_VAINQUEUR`");
-        pstmt.setString(1, nomTournoi);
-        ResultSet rs = pstmt.executeQuery();
-        while (rs.next()){
-            nomTournoi = rs.getString("tournoi.NOM");
-            annee = rs.getInt("ANNEE");
-            nomJoueur = rs.getString("joueur.NOM");
-            prenomJoueur = rs.getString("joueur.PRENOM");
-            sexeJoueur = rs.getString("SEXE");
-            tTournoi.insertRow(tTournoi.getRowCount(), new Object[]{nomTournoi, annee,nomJoueur,prenomJoueur,sexeJoueur});
-        }
-    }catch (Exception e){
-        System.out.println("e");
-    }
-}
-
-public void triAnnee(DefaultTableModel tTounoi, String an){
-        deleteAllRows(tTounoi);
-    try{
-        PreparedStatement pstmt = con.prepareStatement("select tournoi.`NOM` , epreuve.`ANNEE`, joueur.`NOM`, joueur.`PRENOM`, joueur.SEXE " +
-        "from tournoi inner join epreuve inner join match_tennis inner join joueur " +
-        "where epreuve.`ANNEE`=? and tournoi.`ID` = epreuve.`ID_TOURNOI` and epreuve.`ID`=match_tennis.`ID_EPREUVE` and joueur.`ID`=match_tennis.`ID_VAINQUEUR`");
-        pstmt.setString(1, an);
-        ResultSet rs = pstmt.executeQuery();
-        while (rs.next()){
-            nomTournoi = rs.getString("tournoi.NOM");
-            annee = rs.getInt("ANNEE");
-            nomJoueur = rs.getString("joueur.NOM");
-            prenomJoueur = rs.getString("joueur.PRENOM");
-            sexeJoueur = rs.getString("SEXE");
-            tTounoi.insertRow(tTounoi.getRowCount(), new Object[]{nomTournoi, annee,nomJoueur,prenomJoueur,sexeJoueur});
-        }
-    }catch (Exception e){
-        System.out.println("e");
-    }
-}
-}
-

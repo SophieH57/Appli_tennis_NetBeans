@@ -40,7 +40,7 @@ public class PopUpSelection extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel1.setText("Vous devez sélectionner un(e) joueur(se) !");
+        jLabel1.setText("Vous devez sélectionner une ligne!");
 
         BT_PopUp.setText("OK");
         BT_PopUp.addMouseListener(new java.awt.event.MouseAdapter() {

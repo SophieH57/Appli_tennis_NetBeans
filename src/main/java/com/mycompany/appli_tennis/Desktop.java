@@ -5,6 +5,8 @@
 package com.mycompany.appli_tennis;
 
 import java.awt.Color;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,7 +18,21 @@ public class Desktop extends javax.swing.JFrame{
    DefaultTableModel model;
    DefaultTableModel pop;
    DefaultTableModel tTournoi;
-   BDD BDDjoueur = new BDD();
+   DefaultTableModel tMatch;
+   DefaultTableModel tEpreuve;
+   JoueurOnglet ongletJ = new JoueurOnglet();
+   TournoiOnglet ongletT = new TournoiOnglet();
+   MatchOnglet ongletM = new MatchOnglet();
+   EpreuveOnglet ongletE = new EpreuveOnglet();
+   
+    String selectionStatut = null;
+    String selectionTournoi = null;
+    String statutSelected = null;
+    String type = null;
+    String textSearch = null;
+    String epreuve = null;
+    String anneeString = null;
+    int annee = 0;
     JFrame popUpSelect = new PopUpSelection();
     JFrame popUpAdd = new PopUpAdd();
    
@@ -24,10 +40,14 @@ public class Desktop extends javax.swing.JFrame{
         initComponents();
         model = (DefaultTableModel)TabJoueurs.getModel();
         pop = (DefaultTableModel)PopTournoi.getModel();
-        tTournoi = (DefaultTableModel) TabMatch.getModel();
-        BDDjoueur.listeAnnees(Choix_annee);
-        BDDjoueur.listeNomTournois(choix_tournoi);
-        this.setBounds(300, 100, 1050, 700);
+        tTournoi = (DefaultTableModel) TabTournoi.getModel();
+        tMatch = (DefaultTableModel) TabMatch.getModel();
+        tEpreuve = (DefaultTableModel) TabEpreuves.getModel();
+        ongletT.listeAnnees(Choix_annee);
+        ongletT.listeAnnees(Choix_annee_epreuve);
+        ongletT.listeNomTournois(choix_tournoi);
+        ongletT.listeNomTournois(choix_tournoiMatch);
+        this.setBounds(300, 100, 1300, 700);
     } 
 
     /**
@@ -39,6 +59,7 @@ public class Desktop extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        BTGroup_VainFin = new javax.swing.ButtonGroup();
         Frame_Joueur = new javax.swing.JTabbedPane();
         Joueur = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -59,14 +80,42 @@ public class Desktop extends javax.swing.JFrame{
         jScrollPane3 = new javax.swing.JScrollPane();
         PopTournoi = new javax.swing.JTable();
         Tournois_gagnes = new java.awt.Label();
-        Match = new javax.swing.JPanel();
+        Tournoi = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TabMatch = new javax.swing.JTable();
+        TabTournoi = new javax.swing.JTable();
         choix_tournoi = new javax.swing.JComboBox<>();
         Choix_annee = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         BT_Tournoi = new java.awt.Button();
+        BT_Add_Tournoi = new java.awt.Button();
+        BT_Modif_Tournoi = new java.awt.Button();
+        BT_Supprimer_Tournoi = new java.awt.Button();
+        CT_NomTournoi = new java.awt.TextField();
+        label1 = new java.awt.Label();
+        label2 = new java.awt.Label();
+        CT_CodeTournoi = new java.awt.TextField();
+        jLabel3 = new javax.swing.JLabel();
+        CT_SearchTournoi = new java.awt.TextField();
+        label3 = new java.awt.Label();
+        Match = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TabMatch = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        CT_SearchJoueurMatch = new java.awt.TextField();
+        label6 = new java.awt.Label();
+        BT_Vainqueur = new javax.swing.JRadioButton();
+        BT_Finaliste = new javax.swing.JRadioButton();
+        choix_tournoiMatch = new javax.swing.JComboBox<>();
+        label4 = new java.awt.Label();
+        Epreuve = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        TabEpreuves = new javax.swing.JTable();
+        choix_epreuve = new javax.swing.JComboBox<>();
+        Choix_annee_epreuve = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout());
@@ -211,30 +260,25 @@ public class Desktop extends javax.swing.JFrame{
                         .addComponent(BT_Modif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(BT_Supprimer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JoueurLayout.createSequentialGroup()
-                        .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(JoueurLayout.createSequentialGroup()
-                                .addGap(309, 309, 309)
-                                .addComponent(BT_SearchJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JoueurLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BT_joueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(154, 154, 154)))
-                        .addComponent(Sexe1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(JoueurLayout.createSequentialGroup()
+                            .addGap(309, 309, 309)
+                            .addComponent(BT_SearchJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(117, 117, 117)
+                            .addComponent(Sexe1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JoueurLayout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BT_joueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(148, 148, 148))))
                 .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JoueurLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JoueurLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Tournois_gagnes, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JoueurLayout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                    .addComponent(Tournois_gagnes, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(JoueurLayout.createSequentialGroup()
+                .addGap(143, 143, 143)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 916, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
         JoueurLayout.setVerticalGroup(
             JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +308,7 @@ public class Desktop extends javax.swing.JFrame{
                                         .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(Prenom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(Choix_sexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                                         .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(BT_Add, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(BT_Modif, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -275,30 +319,35 @@ public class Desktop extends javax.swing.JFrame{
                         .addComponent(Tournois_gagnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         Frame_Joueur.addTab("Joueur", Joueur);
 
-        TabMatch.setModel(new javax.swing.table.DefaultTableModel(
+        TabTournoi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tournoi", "Année", "Nom du vainqueur", "Prénom du vainqueur", "Sexe du vainqueur"
+                "Code Tournoi", "Tournoi", "Année", "Nom du vainqueur", "Prénom du vainqueur", "Sexe du vainqueur"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(TabMatch);
+        TabTournoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabTournoiMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(TabTournoi);
 
         choix_tournoi.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -316,55 +365,324 @@ public class Desktop extends javax.swing.JFrame{
 
         jLabel2.setText("Année");
 
-        BT_Tournoi.setLabel("Afficher les tournois");
+        BT_Tournoi.setLabel("Afficher le nom des tournois");
         BT_Tournoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BT_TournoiMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout MatchLayout = new javax.swing.GroupLayout(Match);
-        Match.setLayout(MatchLayout);
-        MatchLayout.setHorizontalGroup(
-            MatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MatchLayout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 918, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MatchLayout.createSequentialGroup()
-                .addGroup(MatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MatchLayout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(BT_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(choix_tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MatchLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(MatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Choix_annee, 0, 92, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(216, 216, 216))
+        BT_Add_Tournoi.setActionCommand("BT_Add");
+        BT_Add_Tournoi.setBackground(new java.awt.Color(0, 204, 255));
+        BT_Add_Tournoi.setForeground(new java.awt.Color(51, 102, 255));
+        BT_Add_Tournoi.setLabel("Ajouter");
+        BT_Add_Tournoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BT_Add_TournoiMouseClicked(evt);
+            }
+        });
+
+        BT_Modif_Tournoi.setActionCommand("BT_SearchJ");
+        BT_Modif_Tournoi.setBackground(new java.awt.Color(0, 204, 255));
+        BT_Modif_Tournoi.setForeground(new java.awt.Color(51, 102, 255));
+        BT_Modif_Tournoi.setLabel("Modifier");
+        BT_Modif_Tournoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BT_Modif_TournoiMouseClicked(evt);
+            }
+        });
+
+        BT_Supprimer_Tournoi.setActionCommand("BT_SearchJ");
+        BT_Supprimer_Tournoi.setBackground(new java.awt.Color(0, 204, 255));
+        BT_Supprimer_Tournoi.setForeground(new java.awt.Color(51, 102, 255));
+        BT_Supprimer_Tournoi.setLabel("Supprimer");
+        BT_Supprimer_Tournoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BT_Supprimer_TournoiMouseClicked(evt);
+            }
+        });
+
+        label1.setText("Nom du tournoi");
+
+        label2.setText("Code tournoi");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Afficher les vainqueurs des tournois:");
+
+        CT_SearchTournoi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CT_SearchTournoiKeyReleased(evt);
+            }
+        });
+
+        label3.setText("Rechercher un tournoi");
+
+        javax.swing.GroupLayout TournoiLayout = new javax.swing.GroupLayout(Tournoi);
+        Tournoi.setLayout(TournoiLayout);
+        TournoiLayout.setHorizontalGroup(
+            TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TournoiLayout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TournoiLayout.createSequentialGroup()
+                        .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(TournoiLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(BT_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(TournoiLayout.createSequentialGroup()
+                                .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CT_SearchTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(145, 145, 145)
+                                .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(TournoiLayout.createSequentialGroup()
+                                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(59, 59, 59)
+                                        .addComponent(CT_CodeTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(TournoiLayout.createSequentialGroup()
+                                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(59, 59, 59)
+                                        .addComponent(CT_NomTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(45, 45, 45)
+                        .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BT_Add_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BT_Modif_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BT_Supprimer_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(87, 87, 87)
+                        .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(choix_tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Choix_annee, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 918, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 170, Short.MAX_VALUE))
         );
-        MatchLayout.setVerticalGroup(
-            MatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MatchLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(MatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+        TournoiLayout.setVerticalGroup(
+            TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TournoiLayout.createSequentialGroup()
+                .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TournoiLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(BT_Add_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(TournoiLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(BT_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TournoiLayout.createSequentialGroup()
+                        .addComponent(choix_tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2))
+                    .addGroup(TournoiLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(CT_CodeTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BT_Modif_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(label3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BT_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(choix_tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Choix_annee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TournoiLayout.createSequentialGroup()
+                        .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CT_NomTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(Choix_annee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BT_Supprimer_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(73, 73, 73))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TournoiLayout.createSequentialGroup()
+                        .addComponent(CT_SearchTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
-        Frame_Joueur.addTab("Tournoi", Match);
+        Frame_Joueur.addTab("Tournoi", Tournoi);
+
+        Match.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        TabMatch.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tournoi", "Année", "Nom", "Prénom", "Sexe", "Statut"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TabMatch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabMatchMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(TabMatch);
+
+        Match.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 233, 918, 307));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("Afficher les vainqueurs ou finalistes des tournois:");
+        Match.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 320, -1));
+
+        CT_SearchJoueurMatch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CT_SearchJoueurMatchKeyReleased(evt);
+            }
+        });
+        Match.add(CT_SearchJoueurMatch, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 132, -1));
+
+        label6.setText("Rechercher un joueur");
+        Match.add(label6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+
+        BTGroup_VainFin.add(BT_Vainqueur);
+        BT_Vainqueur.setText("Vainqueurs");
+        BT_Vainqueur.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                BT_VainqueurItemStateChanged(evt);
+            }
+        });
+        Match.add(BT_Vainqueur, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, -1));
+
+        BTGroup_VainFin.add(BT_Finaliste);
+        BT_Finaliste.setText("Finalistes");
+        BT_Finaliste.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                BT_FinalisteItemStateChanged(evt);
+            }
+        });
+        Match.add(BT_Finaliste, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, -1, -1));
+
+        choix_tournoiMatch.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                choix_tournoiMatchItemStateChanged(evt);
+            }
+        });
+        choix_tournoiMatch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choix_tournoiMatchActionPerformed(evt);
+            }
+        });
+        Match.add(choix_tournoiMatch, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 150, -1));
+
+        label4.setText("Tournois");
+        Match.add(label4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, -1));
+
+        Frame_Joueur.addTab("Match", Match);
+
+        TabEpreuves.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tournoi", "Année", "Epreuve", "Nom", "Prénom", "Statut"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TabEpreuves.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabEpreuvesMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(TabEpreuves);
+
+        choix_epreuve.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "H" }));
+        choix_epreuve.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                choix_epreuveItemStateChanged(evt);
+            }
+        });
+        choix_epreuve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choix_epreuveActionPerformed(evt);
+            }
+        });
+
+        Choix_annee_epreuve.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                Choix_annee_epreuveItemStateChanged(evt);
+            }
+        });
+        Choix_annee_epreuve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Choix_annee_epreuveActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Epreuve");
+
+        jLabel8.setText("Année");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setText("Afficher les participants aux épreuves :");
+
+        javax.swing.GroupLayout EpreuveLayout = new javax.swing.GroupLayout(Epreuve);
+        Epreuve.setLayout(EpreuveLayout);
+        EpreuveLayout.setHorizontalGroup(
+            EpreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EpreuveLayout.createSequentialGroup()
+                .addGroup(EpreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EpreuveLayout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addGroup(EpreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(EpreuveLayout.createSequentialGroup()
+                                .addGroup(EpreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(EpreuveLayout.createSequentialGroup()
+                                        .addGap(54, 54, 54)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(168, 168, 168))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EpreuveLayout.createSequentialGroup()
+                                        .addComponent(choix_epreuve, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(128, 128, 128)))
+                                .addGroup(EpreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Choix_annee_epreuve, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 918, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(EpreuveLayout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 256, Short.MAX_VALUE))
+        );
+        EpreuveLayout.setVerticalGroup(
+            EpreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EpreuveLayout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(38, 38, 38)
+                .addGroup(EpreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(EpreuveLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(choix_epreuve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EpreuveLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(Choix_annee_epreuve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(62, 62, 62)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+
+        Frame_Joueur.addTab("Epreuve", Epreuve);
 
         getContentPane().add(Frame_Joueur);
 
@@ -373,18 +691,18 @@ public class Desktop extends javax.swing.JFrame{
 
     private void Choix_genreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Choix_genreItemStateChanged
        String genre = Choix_genre.getSelectedItem().toString();
-       if (genre.equalsIgnoreCase("Aucun tri")) BDDjoueur.listeJoueurs(model);
-       else BDDjoueur.triParGenre(model, genre);
+       if (genre.equalsIgnoreCase("Aucun tri")) ongletJ.listeJoueurs(model);
+       else ongletJ.triParGenre(model, genre);
       
        if (genre.equals("F"))TabJoueurs.setBackground(new Color(168,238,121));
        else if (genre.equals("H")) TabJoueurs.setBackground(new Color(194, 246, 244));
        else TabJoueurs.setBackground(new Color(249, 241, 131));
-       clearAllTextField();
+       clearAllTextFieldJoueurs();
     }//GEN-LAST:event_Choix_genreItemStateChanged
 
     private void BT_joueursMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_joueursMouseClicked
-        BDDjoueur.listeJoueurs(model);
-        clearAllTextField();
+        ongletJ.listeJoueurs(model);
+        clearAllTextFieldJoueurs();
         Choix_genre.setSelectedItem("Aucun tri");
         TabJoueurs.setBackground(Color.lightGray);
     }//GEN-LAST:event_BT_joueursMouseClicked
@@ -396,7 +714,7 @@ public class Desktop extends javax.swing.JFrame{
         String modifPrenom = CT_prenom.getText();
         String modifSexe = Choix_sexe.getSelectedItem().toString();
         int IdAModif = (int) model.getValueAt(TabJoueurs.getSelectedRow(), 0);
-        BDDjoueur.updateJoueur(model, modifNom, modifPrenom, modifSexe, IdAModif);
+        ongletJ.updateJoueur(model, modifNom, modifPrenom, modifSexe, IdAModif);
         }
     }//GEN-LAST:event_BT_ModifMouseClicked
 
@@ -404,15 +722,15 @@ public class Desktop extends javax.swing.JFrame{
         if (TabJoueurs.getSelectedRow() == -1) popUpSelect.setVisible(true);
         else {
         int Id_Sup = (int) model.getValueAt(TabJoueurs.getSelectedRow(), 0);
-        BDDjoueur.deleteJoueur(model, Id_Sup);
-        clearAllTextField();
+        ongletJ.deleteJoueur(model, Id_Sup);
+        clearAllTextFieldJoueurs();
         }
     }//GEN-LAST:event_BT_SupprimerMouseClicked
 
     private void BT_SearchJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_SearchJMouseClicked
         String searchNom = CT_nom.getText().toUpperCase();
         String searchPrenom = CT_prenom.getText().toUpperCase();
-        BDDjoueur.searchJoueur(model, searchNom, searchPrenom);
+        ongletJ.searchJoueur(model, searchNom, searchPrenom);
     }//GEN-LAST:event_BT_SearchJMouseClicked
 
     private void TabJoueursMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabJoueursMouseClicked
@@ -424,47 +742,206 @@ public class Desktop extends javax.swing.JFrame{
         else if (String.valueOf(model.getValueAt(TabJoueurs.getSelectedRow(), 3)).equals("H")){
             Choix_sexe.setSelectedIndex(2);
         }
-        BDDjoueur.afficherPopUp(pop,(int)model.getValueAt(TabJoueurs.getSelectedRow(), 0));
+        ongletJ.afficherPopUp(pop,(int)model.getValueAt(TabJoueurs.getSelectedRow(), 0));
     }//GEN-LAST:event_TabJoueursMouseClicked
 
     private void BT_AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_AddMouseClicked
         String newNom = CT_nom.getText();
         String newPrenom = CT_prenom.getText();
-        String newSexe = Choix_genre.getSelectedItem().toString();
+        String newSexe = Choix_sexe.getSelectedItem().toString();
         if (newNom.equals("") || newPrenom.equals("") || newSexe.equals("")){
              popUpAdd.setVisible(true);
         } else {
-            BDDjoueur.addJoueur(model, newNom, newPrenom, newSexe);
-            clearAllTextField();
+            ongletJ.addJoueur(model, newNom, newPrenom, newSexe);
+            clearAllTextFieldJoueurs();
         }
+        ongletJ.listeJoueurs(model);
     }//GEN-LAST:event_BT_AddMouseClicked
 
     private void choix_tournoiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choix_tournoiItemStateChanged
         Choix_annee.setSelectedItem("Toutes");
         String nomTournoi = choix_tournoi.getSelectedItem().toString();
-        if (nomTournoi.equalsIgnoreCase("Tous")) BDDjoueur.afficherTournois(tTournoi);
-        else BDDjoueur.triTournoi(tTournoi, nomTournoi);
+        if (nomTournoi.equalsIgnoreCase("Tous")) ongletT.afficherVainqueursTournois(tTournoi);
+        else ongletT.triTournoi(tTournoi, nomTournoi);
+        clearAllTextFieldTournois();
     }//GEN-LAST:event_choix_tournoiItemStateChanged
 
     private void BT_TournoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_TournoiMouseClicked
-        BDDjoueur.afficherTournois(tTournoi);
+        ongletT.afficherTournois(tTournoi);
         Choix_annee.setSelectedItem("Toutes");
         choix_tournoi.setSelectedItem("Tous");
+        clearAllTextFieldTournois();
     }//GEN-LAST:event_BT_TournoiMouseClicked
 
     private void Choix_anneeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Choix_anneeItemStateChanged
         choix_tournoi.setSelectedItem("Tous");
         String annee = Choix_annee.getSelectedItem().toString();
-        if (annee.equalsIgnoreCase("Toutes")) BDDjoueur.afficherTournois(tTournoi);
-        else BDDjoueur.triAnnee(tTournoi, annee);
+        if (annee.equalsIgnoreCase("Toutes")) ongletT.afficherVainqueursTournois(tTournoi);
+        else ongletT.triAnnee(tTournoi, annee);
+        clearAllTextFieldTournois();
     }//GEN-LAST:event_Choix_anneeItemStateChanged
 
-    public void clearAllTextField(){
-        BDDjoueur.clearCT(CT_nom);
-        BDDjoueur.clearCT(CT_prenom);
+    private void BT_Add_TournoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_Add_TournoiMouseClicked
+        String codeTournoi = CT_CodeTournoi.getText();
+        String nomTournoi = CT_NomTournoi.getText();
+        
+        if (nomTournoi.equals("") || codeTournoi.equals("")){
+             popUpAdd.setVisible(true);
+        } else {
+            ongletT.addTournoi(tTournoi, codeTournoi,nomTournoi);
+            ongletJ.clearCT(CT_NomTournoi);
+            ongletJ.clearCT(CT_CodeTournoi);
+            choix_tournoi.addItem(nomTournoi);
+            choix_tournoiMatch.addItem(nomTournoi);
+        }
+        clearAllTextFieldTournois();
+    }//GEN-LAST:event_BT_Add_TournoiMouseClicked
+
+    private void BT_Modif_TournoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_Modif_TournoiMouseClicked
+        if (TabTournoi.getSelectedRow() == -1) popUpSelect.setVisible(true);
+        else {
+            choix_tournoi.removeItem(TabTournoi.getValueAt(TabTournoi.getSelectedRow(), 1));
+            choix_tournoiMatch.removeItem(TabTournoi.getValueAt(TabTournoi.getSelectedRow(), 1));
+            String modifCode = CT_CodeTournoi.getText();
+            String modifNomTournoi = CT_NomTournoi.getText();
+            int IdAModif = ongletT.recupererId(model,modifCode, modifNomTournoi);
+            ongletT.updateTournoi(model, IdAModif, modifCode, modifNomTournoi);
+            choix_tournoi.addItem(modifNomTournoi);
+            choix_tournoiMatch.addItem(modifNomTournoi);
+        }
+        
+        clearAllTextFieldTournois();
+        ongletT.afficherTournois(tTournoi);
+    }//GEN-LAST:event_BT_Modif_TournoiMouseClicked
+
+    private void BT_Supprimer_TournoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_Supprimer_TournoiMouseClicked
+    if (TabTournoi.getSelectedRow() == -1) popUpSelect.setVisible(true);
+    else {
+        String codeSup = CT_CodeTournoi.getText();
+        String nomTournoi = CT_NomTournoi.getText();
+        int Id_Sup = ongletT.recupererId(model,codeSup,nomTournoi);
+        ongletT.deleteTournoi(tTournoi, Id_Sup);
+        choix_tournoi.removeItem(nomTournoi);
+        choix_tournoiMatch.removeItem(nomTournoi);
+        clearAllTextFieldTournois();
+        }
+    ongletT.afficherTournois(tTournoi);
+    }//GEN-LAST:event_BT_Supprimer_TournoiMouseClicked
+
+    private void TabTournoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabTournoiMouseClicked
+        CT_CodeTournoi.setText(String.valueOf(tTournoi.getValueAt(TabTournoi.getSelectedRow(), 0)));
+        CT_NomTournoi.setText(String.valueOf(tTournoi.getValueAt(TabTournoi.getSelectedRow(), 1)));
+    }//GEN-LAST:event_TabTournoiMouseClicked
+
+    private void CT_SearchTournoiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CT_SearchTournoiKeyReleased
+        ongletT.searchTournoi(tTournoi, CT_SearchTournoi.getText());
+    }//GEN-LAST:event_CT_SearchTournoiKeyReleased
+
+    private void TabMatchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabMatchMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TabMatchMouseClicked
+
+    private void CT_SearchJoueurMatchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CT_SearchJoueurMatchKeyReleased
+        ongletJ.deleteAllRows(tMatch);
+        textSearch = CT_SearchJoueurMatch.getText();
+        if (BT_Finaliste.isSelected()) {
+            selectionStatut = " joueur.`ID` = match_tennis.`ID_FINALISTE` ";
+            type = "Finaliste";
+        }
+        else if (BT_Vainqueur.isSelected()){
+            selectionStatut = " joueur.`ID` = match_tennis.`ID_VAINQUEUR` ";
+            type = "Vainqueur";
+        }
+        String nomTournoi = choix_tournoiMatch.getSelectedItem().toString();
+        if (nomTournoi.equalsIgnoreCase("Tous")) selectionTournoi = "";
+        else selectionTournoi = "and tournoi.NOM = '"+nomTournoi+"'";
+        ongletM.triVainqueursFinalistes(tMatch, selectionStatut, selectionTournoi,type, textSearch);
+    }//GEN-LAST:event_CT_SearchJoueurMatchKeyReleased
+
+    private void TabEpreuvesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabEpreuvesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TabEpreuvesMouseClicked
+
+    private void choix_epreuveItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choix_epreuveItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_choix_epreuveItemStateChanged
+
+    private void Choix_annee_epreuveItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Choix_annee_epreuveItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Choix_annee_epreuveItemStateChanged
+
+    private void choix_tournoiMatchItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choix_tournoiMatchItemStateChanged
+        ongletJ.deleteAllRows(tMatch);
+        textSearch = CT_SearchJoueurMatch.getText();
+        if (BT_Finaliste.isSelected()) {
+            selectionStatut = " joueur.`ID` = match_tennis.`ID_FINALISTE` ";
+            type = "Finaliste";
+        }
+        else if (BT_Vainqueur.isSelected()){
+            selectionStatut = " joueur.`ID` = match_tennis.`ID_VAINQUEUR` ";
+            type = "Vainqueur";
+        }
+        String nomTournoi = choix_tournoiMatch.getSelectedItem().toString();
+        if (nomTournoi.equalsIgnoreCase("Tous")) selectionTournoi = "";
+        else selectionTournoi = "and tournoi.NOM = '"+nomTournoi+"'";
+        ongletM.triVainqueursFinalistes(tMatch, selectionStatut, selectionTournoi,type, textSearch);
+    }//GEN-LAST:event_choix_tournoiMatchItemStateChanged
+
+    private void BT_VainqueurItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_BT_VainqueurItemStateChanged
+        ongletJ.deleteAllRows(tMatch);
+        if (BT_Vainqueur.isSelected()) {
+            selectionStatut = " joueur.`ID` = match_tennis.`ID_VAINQUEUR` ";
+            type = "Vainqueur";
+        }
+        String nomTournoi = choix_tournoiMatch.getSelectedItem().toString();
+        if (nomTournoi.equalsIgnoreCase("Tous")) selectionTournoi = "";
+        else selectionTournoi = "and tournoi.NOM = '"+nomTournoi+"'";
+        textSearch = CT_SearchJoueurMatch.getText();
+        ongletM.triVainqueursFinalistes(tMatch, selectionStatut, selectionTournoi,type, textSearch);
+    }//GEN-LAST:event_BT_VainqueurItemStateChanged
+
+    private void BT_FinalisteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_BT_FinalisteItemStateChanged
+        ongletJ.deleteAllRows(tMatch);
+        if (BT_Finaliste.isSelected()) {
+            selectionStatut = " joueur.`ID` = match_tennis.`ID_FINALISTE` ";
+            type = "Finaliste";
+        }
+        String nomTournoi = choix_tournoiMatch.getSelectedItem().toString();
+        if (nomTournoi.equalsIgnoreCase("Tous")) selectionTournoi = "";
+        else selectionTournoi = "and tournoi.NOM = '"+nomTournoi+"'";
+        textSearch = CT_SearchJoueurMatch.getText();
+        ongletM.triVainqueursFinalistes(tMatch, selectionStatut, selectionTournoi,type, textSearch);
+    }//GEN-LAST:event_BT_FinalisteItemStateChanged
+
+    private void choix_tournoiMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choix_tournoiMatchActionPerformed
+
+    }//GEN-LAST:event_choix_tournoiMatchActionPerformed
+
+    private void choix_epreuveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choix_epreuveActionPerformed
+        ongletJ.deleteAllRows(tEpreuve);
+        anneeString = Choix_annee_epreuve.getSelectedItem().toString();
+        epreuve = choix_epreuve.getSelectedItem().toString();
+        ongletE.affichageParticipants(tEpreuve, anneeString, epreuve);
+    }//GEN-LAST:event_choix_epreuveActionPerformed
+
+    private void Choix_annee_epreuveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Choix_annee_epreuveActionPerformed
+        ongletJ.deleteAllRows(tEpreuve);
+        anneeString = Choix_annee_epreuve.getSelectedItem().toString();
+        epreuve = choix_epreuve.getSelectedItem().toString();
+        ongletE.affichageParticipants(tEpreuve, anneeString, epreuve);
+    }//GEN-LAST:event_Choix_annee_epreuveActionPerformed
+
+    public void clearAllTextFieldJoueurs(){
+        ongletJ.clearCT(CT_nom);
+        ongletJ.clearCT(CT_prenom);
         Choix_sexe.setSelectedIndex(0);
     }
     
+    public void clearAllTextFieldTournois(){
+        ongletJ.clearCT(CT_CodeTournoi);
+        ongletJ.clearCT(CT_NomTournoi);
+    }
+     
     /**
      * @param args the command line arguments
      */
@@ -500,17 +977,29 @@ public class Desktop extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup BTGroup_VainFin;
     private java.awt.Button BT_Add;
+    private java.awt.Button BT_Add_Tournoi;
+    private javax.swing.JRadioButton BT_Finaliste;
     private java.awt.Button BT_Modif;
+    private java.awt.Button BT_Modif_Tournoi;
     private java.awt.Button BT_SearchJ;
     private java.awt.Button BT_Supprimer;
+    private java.awt.Button BT_Supprimer_Tournoi;
     private java.awt.Button BT_Tournoi;
+    private javax.swing.JRadioButton BT_Vainqueur;
     private java.awt.Button BT_joueurs;
+    private java.awt.TextField CT_CodeTournoi;
+    private java.awt.TextField CT_NomTournoi;
+    private java.awt.TextField CT_SearchJoueurMatch;
+    private java.awt.TextField CT_SearchTournoi;
     private java.awt.TextField CT_nom;
     private java.awt.TextField CT_prenom;
     private javax.swing.JComboBox<String> Choix_annee;
+    private javax.swing.JComboBox<String> Choix_annee_epreuve;
     private javax.swing.JComboBox<String> Choix_genre;
     private javax.swing.JComboBox<String> Choix_sexe;
+    private javax.swing.JPanel Epreuve;
     private javax.swing.JTabbedPane Frame_Joueur;
     private javax.swing.JPanel Joueur;
     private javax.swing.JPanel Match;
@@ -519,14 +1008,31 @@ public class Desktop extends javax.swing.JFrame{
     private java.awt.Label Prenom;
     private java.awt.Label Prenom1;
     private java.awt.Label Sexe1;
+    private javax.swing.JTable TabEpreuves;
     private javax.swing.JTable TabJoueurs;
     private javax.swing.JTable TabMatch;
+    private javax.swing.JTable TabTournoi;
+    private javax.swing.JPanel Tournoi;
     private java.awt.Label Tournois_gagnes;
+    private javax.swing.JComboBox<String> choix_epreuve;
     private javax.swing.JComboBox<String> choix_tournoi;
+    private javax.swing.JComboBox<String> choix_tournoiMatch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private java.awt.Label label1;
+    private java.awt.Label label2;
+    private java.awt.Label label3;
+    private java.awt.Label label4;
+    private java.awt.Label label6;
     // End of variables declaration//GEN-END:variables
 }

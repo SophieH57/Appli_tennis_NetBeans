@@ -11,31 +11,17 @@ import java.sql.DriverManager;
  *
  * @author Utilisateur
  */
-public class Identifiant_connexion {
-   private String url = "jdbc:mysql://localhost:3306/tennis?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
-   private String login = "root";
-   private String password="";
-   private Connection con;
+public class Connexion {
+    Identifiant_connexion Idc = new Identifiant_connexion();
+    private Connection con;
     
     public Connection seConnecter(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(url, login, password);
+            con = DriverManager.getConnection(Idc.getUrl(), Idc.getLogin(), Idc.getPassword());
         } catch (Exception e) {
             System.out.println(e);
         }
         return con;
-    }
-    public String getUrl() {
-        return url;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-    
-    public String getPassword() {
-        return password;
-    }
-  
+}
 }
