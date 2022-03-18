@@ -24,6 +24,8 @@ public class Desktop extends javax.swing.JFrame{
    MatchOnglet ongletM = new MatchOnglet();
    EpreuveOnglet ongletE = new EpreuveOnglet();
    
+   
+   //Déclaration des variables
     String selectionStatut = null;
     String selectionTournoi = null;
     String statutSelected = null;
@@ -34,7 +36,21 @@ public class Desktop extends javax.swing.JFrame{
     int annee = 0;
     JFrame popUpSelect = new PopUpSelection();
     JFrame popUpAdd = new PopUpAdd();
+    
+    
+    //Couleurs appliquées
+    Color orangeF = new Color(204,102,0);
+    Color orangeC = new Color(255,164,71);
+    Color vertF = new Color(23,139,35);
+    Color vertC = new Color(44,226,62);
+    Color bleu = new Color(95,100,240);
+    Color grisC = new Color(171,171,171);
+    Color or = new Color(250,250,10);
+    Color argent = new Color(192,192,192);
+    Color jaunePale = new Color(123,228,133);
    
+    
+    //initialisation de la JFrame
     public Desktop() {
         initComponents();
         model = (DefaultTableModel)TabJoueurs.getModel();
@@ -47,6 +63,7 @@ public class Desktop extends javax.swing.JFrame{
         ongletT.listeNomTournois(choix_tournoi);
         ongletT.listeNomTournois(choix_tournoiMatch);
         this.setBounds(300, 100, 1000, 700);
+        this.setBackground(jaunePale);
     } 
 
     /**
@@ -86,7 +103,6 @@ public class Desktop extends javax.swing.JFrame{
         Choix_annee = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        BT_Tournoi = new java.awt.Button();
         BT_Add_Tournoi = new java.awt.Button();
         BT_Modif_Tournoi = new java.awt.Button();
         BT_Supprimer_Tournoi = new java.awt.Button();
@@ -118,6 +134,12 @@ public class Desktop extends javax.swing.JFrame{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        Frame_Joueur.setBackground(new java.awt.Color(123, 228, 133));
+
+        Joueur.setBackground(new java.awt.Color(245, 240, 140));
+
+        TabJoueurs.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        TabJoueurs.setForeground(new java.awt.Color(255, 255, 255));
         TabJoueurs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -134,6 +156,10 @@ public class Desktop extends javax.swing.JFrame{
                 return canEdit [columnIndex];
             }
         });
+        TabJoueurs.setGridColor(new java.awt.Color(255, 255, 255));
+        TabJoueurs.setRowHeight(20);
+        TabJoueurs.setShowGrid(true);
+        TabJoueurs.setShowVerticalLines(false);
         TabJoueurs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabJoueursMouseClicked(evt);
@@ -141,10 +167,17 @@ public class Desktop extends javax.swing.JFrame{
         });
         jScrollPane1.setViewportView(TabJoueurs);
 
+        Choix_genre.setBackground(new java.awt.Color(204, 102, 0));
+        Choix_genre.setForeground(new java.awt.Color(255, 255, 255));
         Choix_genre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun tri", "F", "H" }));
         Choix_genre.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 Choix_genreItemStateChanged(evt);
+            }
+        });
+        Choix_genre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Choix_genreActionPerformed(evt);
             }
         });
 
@@ -157,6 +190,8 @@ public class Desktop extends javax.swing.JFrame{
         Prenom.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         Prenom.setText("Prénom");
 
+        BT_joueurs.setBackground(new java.awt.Color(204, 102, 0));
+        BT_joueurs.setForeground(new java.awt.Color(255, 255, 255));
         BT_joueurs.setLabel("Afficher tous les joueurs");
         BT_joueurs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -165,8 +200,9 @@ public class Desktop extends javax.swing.JFrame{
         });
 
         BT_Modif.setActionCommand("BT_SearchJ");
-        BT_Modif.setBackground(new java.awt.Color(0, 204, 255));
-        BT_Modif.setForeground(new java.awt.Color(51, 102, 255));
+        BT_Modif.setBackground(new java.awt.Color(204, 102, 0));
+        BT_Modif.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        BT_Modif.setForeground(new java.awt.Color(255, 255, 255));
         BT_Modif.setLabel("Modifier");
         BT_Modif.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -178,8 +214,9 @@ public class Desktop extends javax.swing.JFrame{
         Prenom1.setText("Sexe");
 
         BT_Supprimer.setActionCommand("BT_SearchJ");
-        BT_Supprimer.setBackground(new java.awt.Color(0, 204, 255));
-        BT_Supprimer.setForeground(new java.awt.Color(51, 102, 255));
+        BT_Supprimer.setBackground(new java.awt.Color(204, 102, 0));
+        BT_Supprimer.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        BT_Supprimer.setForeground(new java.awt.Color(255, 255, 255));
         BT_Supprimer.setLabel("Supprimer");
         BT_Supprimer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -188,8 +225,9 @@ public class Desktop extends javax.swing.JFrame{
         });
 
         BT_SearchJ.setActionCommand("BT_SearchJ");
-        BT_SearchJ.setBackground(new java.awt.Color(0, 204, 255));
-        BT_SearchJ.setForeground(new java.awt.Color(51, 102, 255));
+        BT_SearchJ.setBackground(new java.awt.Color(204, 102, 0));
+        BT_SearchJ.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        BT_SearchJ.setForeground(new java.awt.Color(255, 255, 255));
         BT_SearchJ.setLabel("Rechercher");
         BT_SearchJ.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -198,8 +236,9 @@ public class Desktop extends javax.swing.JFrame{
         });
 
         BT_Add.setActionCommand("BT_Add");
-        BT_Add.setBackground(new java.awt.Color(0, 204, 255));
-        BT_Add.setForeground(new java.awt.Color(51, 102, 255));
+        BT_Add.setBackground(new java.awt.Color(204, 102, 0));
+        BT_Add.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        BT_Add.setForeground(new java.awt.Color(255, 255, 255));
         BT_Add.setLabel("Ajouter");
         BT_Add.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -214,6 +253,8 @@ public class Desktop extends javax.swing.JFrame{
 
         Choix_sexe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "F", "H" }));
 
+        PopTournoi.setBackground(new java.awt.Color(171, 171, 171));
+        PopTournoi.setForeground(new java.awt.Color(255, 255, 255));
         PopTournoi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -242,94 +283,95 @@ public class Desktop extends javax.swing.JFrame{
         JoueurLayout.setHorizontalGroup(
             JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JoueurLayout.createSequentialGroup()
-                .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JoueurLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(BT_Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(BT_Modif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(BT_Supprimer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JoueurLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Prenom1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
-                        .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Choix_sexe, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CT_nom, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CT_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(78, 78, 78)
-                        .addComponent(BT_SearchJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106))
+                .addGap(47, 47, 47)
+                .addComponent(BT_Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(BT_Modif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(BT_Supprimer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(676, Short.MAX_VALUE))
             .addGroup(JoueurLayout.createSequentialGroup()
                 .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JoueurLayout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(BT_joueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(97, 97, 97)
+                        .addGap(158, 158, 158)
                         .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Choix_genre, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Sexe1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(128, 128, 128)
+                        .addGap(67, 67, 67)
                         .addComponent(Tournois_gagnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JoueurLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 916, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 36, Short.MAX_VALUE))
+            .addGroup(JoueurLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Prenom1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Choix_sexe, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CT_nom, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CT_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addComponent(BT_SearchJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107))
         );
         JoueurLayout.setVerticalGroup(
             JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JoueurLayout.createSequentialGroup()
                 .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JoueurLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(Tournois_gagnes, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JoueurLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(BT_joueurs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JoueurLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Sexe1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Choix_genre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
-                .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JoueurLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JoueurLayout.createSequentialGroup()
-                                .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CT_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CT_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12, 12, 12)
-                                .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Prenom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Choix_sexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(BT_SearchJ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(67, 67, 67)
+                                .addGap(38, 38, 38)
+                                .addComponent(Tournois_gagnes, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(JoueurLayout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(BT_joueurs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                        .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(JoueurLayout.createSequentialGroup()
+                                    .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(Nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(CT_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(CT_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(12, 12, 12)
+                                    .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(Prenom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Choix_sexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(BT_SearchJ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(55, 55, 55)
                         .addGroup(JoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BT_Add, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BT_Modif, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BT_Supprimer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(BT_Supprimer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40))
                     .addGroup(JoueurLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(40, 40, 40)
+                        .addGap(38, 38, 38)
+                        .addComponent(Sexe1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Choix_genre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
 
         Frame_Joueur.addTab("Joueur", Joueur);
 
+        Tournoi.setBackground(new java.awt.Color(245, 240, 140));
+
+        TabTournoi.setForeground(new java.awt.Color(255, 255, 255));
         TabTournoi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -346,6 +388,9 @@ public class Desktop extends javax.swing.JFrame{
                 return canEdit [columnIndex];
             }
         });
+        TabTournoi.setGridColor(new java.awt.Color(255, 255, 255));
+        TabTournoi.setRowHeight(20);
+        TabTournoi.setShowGrid(true);
         TabTournoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabTournoiMouseClicked(evt);
@@ -353,12 +398,16 @@ public class Desktop extends javax.swing.JFrame{
         });
         jScrollPane2.setViewportView(TabTournoi);
 
+        choix_tournoi.setBackground(new java.awt.Color(204, 102, 0));
+        choix_tournoi.setForeground(new java.awt.Color(255, 255, 255));
         choix_tournoi.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 choix_tournoiItemStateChanged(evt);
             }
         });
 
+        Choix_annee.setBackground(new java.awt.Color(204, 102, 0));
+        Choix_annee.setForeground(new java.awt.Color(255, 255, 255));
         Choix_annee.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 Choix_anneeItemStateChanged(evt);
@@ -369,17 +418,11 @@ public class Desktop extends javax.swing.JFrame{
 
         jLabel2.setText("Année");
 
-        BT_Tournoi.setLabel("Afficher le nom des tournois");
-        BT_Tournoi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BT_TournoiMouseClicked(evt);
-            }
-        });
-
         BT_Add_Tournoi.setActionCommand("BT_Add");
-        BT_Add_Tournoi.setBackground(new java.awt.Color(0, 204, 255));
-        BT_Add_Tournoi.setForeground(new java.awt.Color(51, 102, 255));
+        BT_Add_Tournoi.setBackground(new java.awt.Color(204, 102, 0));
+        BT_Add_Tournoi.setForeground(new java.awt.Color(255, 255, 255));
         BT_Add_Tournoi.setLabel("Ajouter");
+        BT_Add_Tournoi.setPreferredSize(null);
         BT_Add_Tournoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BT_Add_TournoiMouseClicked(evt);
@@ -387,9 +430,10 @@ public class Desktop extends javax.swing.JFrame{
         });
 
         BT_Modif_Tournoi.setActionCommand("BT_SearchJ");
-        BT_Modif_Tournoi.setBackground(new java.awt.Color(0, 204, 255));
-        BT_Modif_Tournoi.setForeground(new java.awt.Color(51, 102, 255));
+        BT_Modif_Tournoi.setBackground(new java.awt.Color(204, 102, 0));
+        BT_Modif_Tournoi.setForeground(new java.awt.Color(255, 255, 255));
         BT_Modif_Tournoi.setLabel("Modifier");
+        BT_Modif_Tournoi.setPreferredSize(null);
         BT_Modif_Tournoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BT_Modif_TournoiMouseClicked(evt);
@@ -397,9 +441,10 @@ public class Desktop extends javax.swing.JFrame{
         });
 
         BT_Supprimer_Tournoi.setActionCommand("BT_SearchJ");
-        BT_Supprimer_Tournoi.setBackground(new java.awt.Color(0, 204, 255));
-        BT_Supprimer_Tournoi.setForeground(new java.awt.Color(51, 102, 255));
+        BT_Supprimer_Tournoi.setBackground(new java.awt.Color(204, 102, 0));
+        BT_Supprimer_Tournoi.setForeground(new java.awt.Color(255, 255, 255));
         BT_Supprimer_Tournoi.setLabel("Supprimer");
+        BT_Supprimer_Tournoi.setPreferredSize(null);
         BT_Supprimer_Tournoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BT_Supprimer_TournoiMouseClicked(evt);
@@ -439,22 +484,19 @@ public class Desktop extends javax.swing.JFrame{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(TournoiLayout.createSequentialGroup()
                 .addGap(67, 67, 67)
-                .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BT_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CT_SearchTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(118, 118, 118)
+                .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TournoiLayout.createSequentialGroup()
-                        .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CT_SearchTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                        .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(TournoiLayout.createSequentialGroup()
-                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
-                                .addComponent(CT_CodeTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(TournoiLayout.createSequentialGroup()
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
-                                .addComponent(CT_NomTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(CT_CodeTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TournoiLayout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(CT_NomTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -467,27 +509,25 @@ public class Desktop extends javax.swing.JFrame{
         TournoiLayout.setVerticalGroup(
             TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TournoiLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TournoiLayout.createSequentialGroup()
                         .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(TournoiLayout.createSequentialGroup()
-                                .addComponent(BT_Tournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(TournoiLayout.createSequentialGroup()
-                                        .addGap(50, 50, 50)
-                                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(CT_SearchTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(TournoiLayout.createSequentialGroup()
-                                        .addGap(44, 44, 44)
-                                        .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(CT_CodeTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(CT_NomTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(TournoiLayout.createSequentialGroup()
+                                    .addGap(50, 50, 50)
+                                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(CT_SearchTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(TournoiLayout.createSequentialGroup()
+                                    .addGap(44, 44, 44)
+                                    .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(CT_CodeTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(TournoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(CT_NomTournoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(TournoiLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(30, 30, 30)
@@ -513,6 +553,7 @@ public class Desktop extends javax.swing.JFrame{
 
         Frame_Joueur.addTab("Tournoi", Tournoi);
 
+        Match.setBackground(new java.awt.Color(245, 240, 140));
         Match.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         TabMatch.setModel(new javax.swing.table.DefaultTableModel(
@@ -531,6 +572,10 @@ public class Desktop extends javax.swing.JFrame{
                 return canEdit [columnIndex];
             }
         });
+        TabMatch.setGridColor(new java.awt.Color(0, 0, 0));
+        TabMatch.setRowHeight(20);
+        TabMatch.setShowGrid(true);
+        TabMatch.setShowVerticalLines(false);
         TabMatch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabMatchMouseClicked(evt);
@@ -572,6 +617,8 @@ public class Desktop extends javax.swing.JFrame{
         });
         Match.add(BT_Finaliste, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 170, -1, -1));
 
+        choix_tournoiMatch.setBackground(new java.awt.Color(204, 102, 0));
+        choix_tournoiMatch.setForeground(new java.awt.Color(255, 255, 255));
         choix_tournoiMatch.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 choix_tournoiMatchItemStateChanged(evt);
@@ -589,6 +636,10 @@ public class Desktop extends javax.swing.JFrame{
 
         Frame_Joueur.addTab("Match", Match);
 
+        Epreuve.setBackground(new java.awt.Color(245, 240, 140));
+
+        TabEpreuves.setBackground(new java.awt.Color(171, 171, 171));
+        TabEpreuves.setForeground(new java.awt.Color(255, 255, 255));
         TabEpreuves.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -605,6 +656,10 @@ public class Desktop extends javax.swing.JFrame{
                 return canEdit [columnIndex];
             }
         });
+        TabEpreuves.setGridColor(new java.awt.Color(255, 255, 255));
+        TabEpreuves.setRowHeight(20);
+        TabEpreuves.setShowGrid(true);
+        TabEpreuves.setShowVerticalLines(false);
         TabEpreuves.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabEpreuvesMouseClicked(evt);
@@ -612,23 +667,17 @@ public class Desktop extends javax.swing.JFrame{
         });
         jScrollPane5.setViewportView(TabEpreuves);
 
+        choix_epreuve.setBackground(new java.awt.Color(204, 102, 0));
+        choix_epreuve.setForeground(new java.awt.Color(255, 255, 255));
         choix_epreuve.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "H" }));
-        choix_epreuve.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                choix_epreuveItemStateChanged(evt);
-            }
-        });
         choix_epreuve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 choix_epreuveActionPerformed(evt);
             }
         });
 
-        Choix_annee_epreuve.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                Choix_annee_epreuveItemStateChanged(evt);
-            }
-        });
+        Choix_annee_epreuve.setBackground(new java.awt.Color(204, 102, 0));
+        Choix_annee_epreuve.setForeground(new java.awt.Color(255, 255, 255));
         Choix_annee_epreuve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Choix_annee_epreuveActionPerformed(evt);
@@ -670,7 +719,7 @@ public class Desktop extends javax.swing.JFrame{
         EpreuveLayout.setVerticalGroup(
             EpreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EpreuveLayout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
+                .addContainerGap(84, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(38, 38, 38)
                 .addGroup(EpreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -698,10 +747,7 @@ public class Desktop extends javax.swing.JFrame{
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(Frame_Joueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+            .addComponent(Frame_Joueur, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -712,9 +758,22 @@ public class Desktop extends javax.swing.JFrame{
        if (genre.equalsIgnoreCase("Aucun tri")) ongletJ.listeJoueurs(model);
        else ongletJ.triParGenre(model, genre);
       
-       if (genre.equals("F"))TabJoueurs.setBackground(new Color(168,238,121));
-       else if (genre.equals("H")) TabJoueurs.setBackground(new Color(194, 246, 244));
-       else TabJoueurs.setBackground(new Color(249, 241, 131));
+       if (genre.equals("F")){
+           TabJoueurs.setBackground(vertF);
+           TabJoueurs.setForeground(Color.white);
+           TabJoueurs.setSelectionForeground(Color.black);
+           TabJoueurs.setSelectionBackground(vertC);
+       }
+       else if (genre.equals("H")) {
+           TabJoueurs.setBackground(orangeF);
+           TabJoueurs.setForeground(Color.white);
+           TabJoueurs.setSelectionForeground(Color.black);
+           TabJoueurs.setSelectionBackground(orangeC);
+       }
+       else {
+           TabJoueurs.setBackground(grisC);
+           TabJoueurs.setForeground(Color.white);
+       }
        clearAllTextFieldJoueurs();
     }//GEN-LAST:event_Choix_genreItemStateChanged
 
@@ -722,7 +781,8 @@ public class Desktop extends javax.swing.JFrame{
         ongletJ.listeJoueurs(model);
         clearAllTextFieldJoueurs();
         Choix_genre.setSelectedItem("Aucun tri");
-        TabJoueurs.setBackground(Color.lightGray);
+        TabJoueurs.setSelectionForeground(Color.white);
+        TabJoueurs.setBackground(grisC);
     }//GEN-LAST:event_BT_joueursMouseClicked
 
     private void BT_ModifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_ModifMouseClicked
@@ -784,15 +844,18 @@ public class Desktop extends javax.swing.JFrame{
         String nomTournoi = choix_tournoi.getSelectedItem().toString();
         if (nomTournoi.equalsIgnoreCase("Tous")) ongletT.afficherVainqueursTournois(tTournoi);
         else ongletT.triTournoi(tTournoi, nomTournoi);
+        
+        switch (nomTournoi){
+            case "Roland Garros": TabTournoi.setBackground(orangeF);
+            break;
+            case "Wimbledon" : TabTournoi.setBackground(vertF);
+            break;
+            case "Tous" : TabTournoi.setBackground(grisC);
+            break;
+            default: TabTournoi.setBackground(bleu);
+        }
         clearAllTextFieldTournois();
     }//GEN-LAST:event_choix_tournoiItemStateChanged
-
-    private void BT_TournoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_TournoiMouseClicked
-        ongletT.afficherTournois(tTournoi);
-        Choix_annee.setSelectedItem("Toutes");
-        choix_tournoi.setSelectedItem("Tous");
-        clearAllTextFieldTournois();
-    }//GEN-LAST:event_BT_TournoiMouseClicked
 
     private void Choix_anneeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Choix_anneeItemStateChanged
         choix_tournoi.setSelectedItem("Tous");
@@ -868,10 +931,12 @@ public class Desktop extends javax.swing.JFrame{
         if (BT_Finaliste.isSelected()) {
             selectionStatut = " joueur.`ID` = match_tennis.`ID_FINALISTE` ";
             type = "Finaliste";
+            TabMatch.setBackground(argent);
         }
         else if (BT_Vainqueur.isSelected()){
             selectionStatut = " joueur.`ID` = match_tennis.`ID_VAINQUEUR` ";
             type = "Vainqueur";
+            TabMatch.setBackground(or);
         }
         String nomTournoi = choix_tournoiMatch.getSelectedItem().toString();
         if (nomTournoi.equalsIgnoreCase("Tous")) selectionTournoi = "";
@@ -883,24 +948,18 @@ public class Desktop extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_TabEpreuvesMouseClicked
 
-    private void choix_epreuveItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choix_epreuveItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_choix_epreuveItemStateChanged
-
-    private void Choix_annee_epreuveItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Choix_annee_epreuveItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Choix_annee_epreuveItemStateChanged
-
     private void choix_tournoiMatchItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choix_tournoiMatchItemStateChanged
         ongletJ.deleteAllRows(tMatch);
         textSearch = CT_SearchJoueurMatch.getText();
         if (BT_Finaliste.isSelected()) {
             selectionStatut = " joueur.`ID` = match_tennis.`ID_FINALISTE` ";
             type = "Finaliste";
+            TabMatch.setBackground(argent);
         }
         else if (BT_Vainqueur.isSelected()){
             selectionStatut = " joueur.`ID` = match_tennis.`ID_VAINQUEUR` ";
             type = "Vainqueur";
+            TabMatch.setBackground(or);
         }
         String nomTournoi = choix_tournoiMatch.getSelectedItem().toString();
         if (nomTournoi.equalsIgnoreCase("Tous")) selectionTournoi = "";
@@ -910,6 +969,7 @@ public class Desktop extends javax.swing.JFrame{
 
     private void BT_VainqueurItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_BT_VainqueurItemStateChanged
         ongletJ.deleteAllRows(tMatch);
+        TabMatch.setBackground(or);
         if (BT_Vainqueur.isSelected()) {
             selectionStatut = " joueur.`ID` = match_tennis.`ID_VAINQUEUR` ";
             type = "Vainqueur";
@@ -923,6 +983,7 @@ public class Desktop extends javax.swing.JFrame{
 
     private void BT_FinalisteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_BT_FinalisteItemStateChanged
         ongletJ.deleteAllRows(tMatch);
+        TabMatch.setBackground(argent);
         if (BT_Finaliste.isSelected()) {
             selectionStatut = " joueur.`ID` = match_tennis.`ID_FINALISTE` ";
             type = "Finaliste";
@@ -942,6 +1003,8 @@ public class Desktop extends javax.swing.JFrame{
         ongletJ.deleteAllRows(tEpreuve);
         anneeString = Choix_annee_epreuve.getSelectedItem().toString();
         epreuve = choix_epreuve.getSelectedItem().toString();
+        if (epreuve.equals("F")) TabEpreuves.setBackground(vertF);
+        else if (epreuve.equals("H")) TabEpreuves.setBackground(orangeF);
         ongletE.affichageParticipants(tEpreuve, anneeString, epreuve);
     }//GEN-LAST:event_choix_epreuveActionPerformed
 
@@ -955,6 +1018,10 @@ public class Desktop extends javax.swing.JFrame{
     private void BT_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_AddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BT_AddActionPerformed
+
+    private void Choix_genreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Choix_genreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Choix_genreActionPerformed
 
     public void clearAllTextFieldJoueurs(){
         ongletJ.clearCT(CT_nom);
@@ -1011,7 +1078,6 @@ public class Desktop extends javax.swing.JFrame{
     private java.awt.Button BT_SearchJ;
     private java.awt.Button BT_Supprimer;
     private java.awt.Button BT_Supprimer_Tournoi;
-    private java.awt.Button BT_Tournoi;
     private javax.swing.JRadioButton BT_Vainqueur;
     private java.awt.Button BT_joueurs;
     private java.awt.TextField CT_CodeTournoi;
