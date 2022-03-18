@@ -6,7 +6,6 @@ package com.mycompany.appli_tennis;
 
 import java.awt.TextField;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
@@ -18,26 +17,13 @@ import javax.swing.table.DefaultTableModel;
 public class JoueurOnglet{
     
     Identifiant_connexion IdC = new Identifiant_connexion();
-   private String url = IdC.getUrl();
-   private String login = IdC.getLogin();
-   private String password= IdC.getPassword();
-   private Connection con;
+   private final Connection con = IdC.seConnecter();
    
    int ID_Joueur;
    private String nomJoueur;
    private String prenomJoueur;
    private String sexeJoueur; 
-   
-   
-    public JoueurOnglet() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(url, login, password);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
- 
+    
 public void deleteAllRows(DefaultTableModel model){
     for (int i=model.getRowCount()-1; i>=0; i--){
         model.removeRow(i);
@@ -85,8 +71,6 @@ public void clearCT(TextField CT){
     
 public void deleteJoueur(DefaultTableModel model, int Id){
     try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, login, password);
         PreparedStatement pstmt = con.prepareStatement("DELETE from joueur where ID = ?");
         pstmt.setInt(1, Id);
         pstmt.executeUpdate();

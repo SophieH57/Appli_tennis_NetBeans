@@ -5,7 +5,6 @@
 package com.mycompany.appli_tennis;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
@@ -16,10 +15,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class EpreuveOnglet {
     Identifiant_connexion IdC = new Identifiant_connexion();
-    private String url = IdC.getUrl();
-    private String login = IdC.getLogin();
-    private String password= IdC.getPassword();
-     private Connection con;
+     private final Connection con = IdC.seConnecter();
      
      private String nomJoueur;
    private String prenomJoueur;
@@ -28,16 +24,7 @@ public class EpreuveOnglet {
    private int ID_Vainqueur;
    private String statut;
    private String annee;
-     
-    public EpreuveOnglet(){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(url, login, password);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-    
+            
     public void affichageParticipants(DefaultTableModel model, String anneeString, String epreuve){
         if (anneeString.equals("Toutes")) annee = "";
         else annee = "and epreuve.`ANNEE` = "+anneeString;

@@ -6,7 +6,6 @@ package com.mycompany.appli_tennis;
 
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
@@ -17,10 +16,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MatchOnglet {
     Identifiant_connexion IdC = new Identifiant_connexion();
-    private String url = IdC.getUrl();
-    private String login = IdC.getLogin();
-    private String password= IdC.getPassword();
-     private Connection con;
+
+   private final Connection con = IdC.seConnecter();
      
    private int ID_Joueur;
    private String nomJoueur;
@@ -32,15 +29,6 @@ public class MatchOnglet {
    private String statut;
    
    JoueurOnglet BDDMatch = new JoueurOnglet();
-
-    public MatchOnglet() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(url, login, password);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
     
     public void triVainqueursFinalistes(DefaultTableModel model, String selectionVainqueur, String selectionTournoi, String type, String textSearch){
         
