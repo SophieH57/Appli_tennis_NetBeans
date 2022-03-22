@@ -833,10 +833,10 @@ public class Desktop extends javax.swing.JFrame{
              popUpAdd.setVisible(true);
         } else {
             ongletJ.addJoueur(model, newNom, newPrenom, newSexe);
+            JOptionPane.showMessageDialog(null, "Le joueur a été ajouté");
             clearAllTextFieldJoueurs();
         }
         ongletJ.listeJoueurs(model);
-        JOptionPane.showMessageDialog(null, "Le joueur a été ajouté");
     }//GEN-LAST:event_BT_AddMouseClicked
 
     private void choix_tournoiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choix_tournoiItemStateChanged
