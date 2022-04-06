@@ -758,22 +758,26 @@ public class Desktop extends javax.swing.JFrame{
        if (genre.equalsIgnoreCase("Aucun tri")) ongletJ.listeJoueurs(model);
        else ongletJ.triParGenre(model, genre);
       
-       if (genre.equals("F")){
+       switch (genre) {
+           case "F" : 
            TabJoueurs.setBackground(vertF);
            TabJoueurs.setForeground(Color.white);
            TabJoueurs.setSelectionForeground(Color.black);
            TabJoueurs.setSelectionBackground(vertC);
-       }
-       else if (genre.equals("H")) {
+           break;
+           
+           case "H" : 
            TabJoueurs.setBackground(orangeF);
            TabJoueurs.setForeground(Color.white);
            TabJoueurs.setSelectionForeground(Color.black);
            TabJoueurs.setSelectionBackground(orangeC);
-       }
-       else {
+           break;
+           
+           default :
            TabJoueurs.setBackground(grisC);
            TabJoueurs.setForeground(Color.white);
        }
+
        clearAllTextFieldJoueurs();
     }//GEN-LAST:event_Choix_genreItemStateChanged
 
@@ -971,7 +975,7 @@ public class Desktop extends javax.swing.JFrame{
         ongletJ.deleteAllRows(tMatch);
         TabMatch.setBackground(or);
         if (BT_Vainqueur.isSelected()) {
-            selectionStatut = " joueur.`ID` = match_tennis.`ID_VAINQUEUR` ";
+            selectionStatut = "joueur.`ID` = match_tennis.`ID_VAINQUEUR`";
             type = "Vainqueur";
         }
         String nomTournoi = choix_tournoiMatch.getSelectedItem().toString();

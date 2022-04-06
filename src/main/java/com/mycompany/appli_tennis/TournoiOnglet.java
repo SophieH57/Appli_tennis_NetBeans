@@ -7,6 +7,7 @@ package com.mycompany.appli_tennis;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
@@ -43,15 +44,17 @@ public class TournoiOnglet {
          System.out.println("e");
      }
 }
-
+    
 public void listeAnnees(JComboBox box){
     box.addItem("Toutes");
+    ArrayList<Integer> annees = new ArrayList<>();
     try {
         PreparedStatement pstmt = con.prepareStatement("select ANNEE from epreuve");
         ResultSet rs = pstmt.executeQuery();
         while (rs.next()){
             annee = rs.getInt("ANNEE");
-            box.addItem(annee);
+            if (!annees.contains(annee)) box.addItem(annee);
+            annees.add(annee);
         }
     }
     catch (Exception e){

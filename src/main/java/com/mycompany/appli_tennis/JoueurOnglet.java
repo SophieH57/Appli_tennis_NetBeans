@@ -47,7 +47,7 @@ public void clearCT(TextField CT){
         }
  }
      catch (Exception e){
-         System.out.println("e");
+         System.out.println(e);
      }
  }
  
